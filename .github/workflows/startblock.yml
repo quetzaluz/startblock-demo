@@ -1,0 +1,23 @@
+name: Block Merge Based on Time
+on:
+  pull_request:
+    branches: [ main ]
+  merge_group:
+    branches: [ main ]
+  schedule:
+    - cron: "*/30 * * * *"
+
+jobs:
+  block:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      # Runs a single command using the runners shell
+      - name: Check dates
+        uses: yykamei/block-merge-based-on-time@v3.0.21
+        with:
+          before: 23:30
+          after: 00:30
+          timezone: "UTC"
+          base-branches: "main"
+          prohibited-days-dates: "2023-11-17/2023-11-27, H:United States, BH:United States"
